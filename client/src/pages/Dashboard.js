@@ -16,13 +16,13 @@ const Dashboard = () => {
 
       // Fetch Properties
       const propertyResponse = await axios.get(
-        "http://localhost:5000/api/properties"
+        "https://homehaven-house-rent-management-system.onrender.com/api/properties"
       );
       setProperties(propertyResponse.data);
 
       // Fetch Bookings
       const bookingResponse = await axios.get(
-        "http://localhost:5000/api/bookings/my",
+        "https://homehaven-house-rent-management-system.onrender.com/api/bookings/my",
         {
           headers: {
             Authorization: `Bearer ${token}`,

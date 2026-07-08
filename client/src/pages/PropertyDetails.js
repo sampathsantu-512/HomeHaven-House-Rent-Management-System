@@ -13,7 +13,7 @@ const PropertyDetails = () => {
     const fetchPropertyDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/properties/${id}`
+          `https://homehaven-house-rent-management-system.onrender.com/api/properties/${id}`
         );
 
         setProperty(response.data);
@@ -41,7 +41,7 @@ const PropertyDetails = () => {
       }
 
       await axios.post(
-        "http://localhost:5000/api/bookings",
+        "https://homehaven-house-rent-management-system.onrender.com/api/bookings",
         {
           property: property._id,
         },

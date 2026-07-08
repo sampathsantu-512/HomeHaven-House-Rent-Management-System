@@ -48,7 +48,7 @@ const PropertyCard = ({ property }) => {
       const propertyId = property.id || property._id;
 
       await axios.put(
-        `http://localhost:5000/api/properties/${propertyId}`,
+        `https://homehaven-house-rent-management-system.onrender.com/api/properties/${propertyId}`,
         {
           title: formData.title,
           description: formData.description,
@@ -83,7 +83,7 @@ const PropertyCard = ({ property }) => {
       const propertyId = property.id || property._id;
 
       await axios.delete(
-        `http://localhost:5000/api/properties/${propertyId}`,
+        `https://homehaven-house-rent-management-system.onrender.com/api/properties/${propertyId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

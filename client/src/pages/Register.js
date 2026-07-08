@@ -12,7 +12,7 @@ const Register = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/register", {
+      const response = await axios.post("https://homehaven-house-rent-management-system.onrender.comapi/auth/register", {
         name,
         email,
         password,

@@ -27,7 +27,7 @@ const AddProperty = () => {
       }
 
       await axios.post(
-        "http://localhost:5000/api/properties",
+        "https://homehaven-house-rent-management-system.onrender.com/api/properties",
         {
           title,
           description,
