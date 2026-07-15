@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AddProperty = () => {
-  const [title, setTitle] = useState("");
-  const [location, setLocation] = useState("");
-  const [price, setPrice] = useState("");
+  const [propertyType, setPropertyType] = useState("");
+  const [adType, setAdType] = useState("");
+  const [address, setAddress] = useState("");
+  const [contact, setContact] = useState("");
+  const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [bedrooms, setBedrooms] = useState("");
-  const [bathrooms, setBathrooms] = useState("");
-  const [type, setType] = useState("Apartment");
+  const [image, setImage] = useState(null);
 
   const navigate = useNavigate();
 
@@ -20,38 +20,38 @@ const AddProperty = () => {
     try {
       const token = localStorage.getItem("token");
 
-      if (!token) {
-        alert("You must be logged in to add a property.");
-        navigate("/login");
-        return;
+      const formData = new FormData();
+
+      formData.append("propertyType", propertyType);
+      formData.append("adType", adType);
+      formData.append("address", address);
+      formData.append("contact", contact);
+      formData.append("amount", amount);
+      formData.append("description", description);
+
+      if (image) {
+        formData.append("image", image);
       }
 
       await axios.post(
         "https://homehaven-house-rent-management-system.onrender.com/api/properties",
-        {
-          title,
-          description,
-          location,
-          price,
-          bedrooms,
-          bathrooms,
-          image: imageUrl,
-          type,
-        },
+        formData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
 
-      alert("Property Added Successfully");
-      navigate("/");
+      toast.success("Property Added Successfully");
+      navigate("/owner-dashboard");
+
     } catch (error) {
-      alert(
+      toast.error(
         error.response?.data?.message ||
-          error.message ||
-          "Failed to add property."
+        error.message ||
+        "Failed to add property."
       );
     }
   };
@@ -69,86 +69,81 @@ const AddProperty = () => {
 
               <form onSubmit={handleSubmit}>
                 <div className="row">
-                  <div className="col-12 col-md-6 mb-3">
-                    <label className="form-label fw-semibold">Property Title</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Property Title"
-                      value={title}
-                      onChange={(e) => setTitle(e.target.value)}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-12 col-md-6 mb-3">
-                    <label className="form-label fw-semibold">Location</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Location"
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-12 col-md-6 mb-3">
-                    <label className="form-label fw-semibold">Monthly Rent</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      placeholder="Price"
-                      value={price}
-                      onChange={(e) => setPrice(e.target.value)}
-                      required
-                    />
-                  </div>
-
-                  <div className="col-12 col-md-6 mb-3">
-                    <label className="form-label fw-semibold">Image URL</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Paste Image URL"
-                      value={imageUrl}
-                      onChange={(e) => setImageUrl(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="col-12 col-md-6 mb-3">
-                    <label className="form-label fw-semibold">Bedrooms</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={bedrooms}
-                      onChange={(e) => setBedrooms(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="col-12 col-md-6 mb-3">
-                    <label className="form-label fw-semibold">Bathrooms</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      value={bathrooms}
-                      onChange={(e) => setBathrooms(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="col-12 mb-3">
-                    <label className="form-label fw-semibold">Property Type</label>
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">Property Type</label>
                     <select
                       className="form-select"
-                      value={type}
-                      onChange={(e) => setType(e.target.value)}
+                      value={propertyType}
+                      onChange={(e) => setPropertyType(e.target.value)}
+                      required
                     >
-                      <option>Apartment</option>
-                      <option>Villa</option>
-                      <option>House</option>
-                      <option>PG</option>
+                      <option value="">Select Property Type</option>
+                      <option value="Residential">Residential</option>
+                      <option value="Commercial">Commercial</option>
                     </select>
                   </div>
+
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">Ad Type</label>
+                    <select
+                      className="form-select"
+                      value={adType}
+                      onChange={(e) => setAdType(e.target.value)}
+                      required
+                    >
+                      <option value="">Select Ad Type</option>
+                      <option value="Rent">Rent</option>
+                      <option value="Sale">Sale</option>
+                    </select>
+                  </div>
+
+                  <div className="col-md-12 mb-3">
+                    <label className="form-label">Address</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">Contact</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      value={contact}
+                      onChange={(e) => setContact(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className="col-md-6 mb-3">
+                    <label className="form-label">Amount</label>
+                    <input
+                      type="number"
+                      className="form-control"
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className="col-md-12 mb-3">
+                    <label className="form-label">Property Image</label>
+                    <input
+                      type="file"
+                      className="form-control"
+                      accept="image/*"
+                      onChange={(e) => setImage(e.target.files[0])}
+                      required
+                    />
+                  </div>
+
+
+
+
                 </div>
 
                 <div className="mb-4">
@@ -159,6 +154,7 @@ const AddProperty = () => {
                     placeholder="Write about your property..."
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
+                    required
                   />
                 </div>
 

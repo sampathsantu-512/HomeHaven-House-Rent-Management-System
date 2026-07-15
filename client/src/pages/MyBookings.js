@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const MyBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -24,7 +25,7 @@ const MyBookings = () => {
       setBookings(response.data);
     } catch (error) {
       console.log(error);
-      alert("Failed to load bookings");
+      toast.success("Failed to load bookings");
     }
   };
 
@@ -47,12 +48,13 @@ const MyBookings = () => {
         }
       );
 
-      alert("Booking Cancelled Successfully");
+      toast.success("Booking Cancelled Successfully");
+      window.location.reload();
 
       fetchBookings();
     } catch (error) {
       console.log(error);
-      alert("Failed to cancel booking");
+      toast.success("Failed to cancel booking");
     }
   };
 
@@ -60,11 +62,11 @@ const MyBookings = () => {
     <div className="container py-4 py-md-5">
 
       <div className="text-center mb-5">
-        <h2 className="fw-bold text-success">
+        <h2 className="fw-bold text-white">
           My Bookings
         </h2>
 
-        <p className="text-muted">
+        <p className="text-light">
           View and manage all your booked properties.
         </p>
       </div>
@@ -72,7 +74,7 @@ const MyBookings = () => {
       {bookings.length === 0 ? (
 
         <div className="text-center py-5">
-          <h4>No bookings found.</h4>
+          <h4 className="text-white">No bookings found.</h4>
         </div>
 
       ) : (
@@ -89,10 +91,13 @@ const MyBookings = () => {
               <div className="card border-0 shadow rounded-4 h-100">
 
                 <img
-                  src={booking.property.image}
+                  src={
+                    booking.property?.images?.length > 0
+                      ? booking.property.images[0]
+                      : "https://via.placeholder.com/400x250?text=No+Image"
+                  }
                   className="card-img-top"
-                  alt={booking.property.title}
-                  style={{
+                  alt={booking.property?.propertyType || "Property"} style={{
                     height: "220px",
                     objectFit: "cover",
                   }}
@@ -101,16 +106,16 @@ const MyBookings = () => {
                 <div className="card-body d-flex flex-column">
 
                   <h5 className="fw-bold">
-                    {booking.property.title}
+                    {booking.property?.propertyType || "Property Deleted"}
                   </h5>
 
                   <p className="text-muted mb-2">
-                    {booking.property.location}
+                    {booking.property?.address || "Address not available"}
                   </p>
 
                   <p className="mb-2">
                     <strong>Price:</strong> ₹
-                    {booking.property.price}/month
+                    {booking.property?.amount || 0}
                   </p>
 
                   <p className="mb-3">

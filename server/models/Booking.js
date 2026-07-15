@@ -5,11 +5,13 @@ const bookingSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
 
     property: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Property",
+      required: true,
     },
 
     bookingDate: {
@@ -19,10 +21,13 @@ const bookingSchema = new mongoose.Schema(
 
     status: {
       type: String,
+      enum: ["Pending", "Booked", "Rejected"],
       default: "Pending",
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
 module.exports = mongoose.model("Booking", bookingSchema);

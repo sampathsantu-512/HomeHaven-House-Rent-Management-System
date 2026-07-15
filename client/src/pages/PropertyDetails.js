@@ -1,35 +1,59 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
+import { toast } from "react-toastify";
+
 
 const PropertyDetails = () => {
+
   const { id } = useParams();
 
   const [property, setProperty] = useState(null);
+
   const [loading, setLoading] = useState(true);
+
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchPropertyDetails = async () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, []);
+
+
+  useEffect(() => {
+
+    const fetchProperty = async () => {
+
       try {
-        const response = await axios.get(
+
+        const res = await axios.get(
           `https://homehaven-house-rent-management-system.onrender.com/api/properties/${id}`
         );
 
-        setProperty(response.data);
-        setError("");
+        setProperty(res.data);
+
       } catch (err) {
-        setError("Property not found");
+
+        setError("Property not found.");
+
       } finally {
+
         setLoading(false);
+
       }
+
     };
 
-    fetchPropertyDetails();
+    fetchProperty();
+
   }, [id]);
 
   const handleBooking = async () => {
+
     try {
+
       const token = localStorage.getItem("token");
 
       if (!token) {
@@ -49,86 +73,152 @@ const PropertyDetails = () => {
         }
       );
 
-      alert("Property booked successfully!");
+      toast.success("Property booked successfully!");
+      window.location.reload();
+
     } catch (error) {
-      alert(error.response?.data?.message || "Booking failed.");
+
+      alert(
+        error.response?.data?.message || "Booking failed."
+      );
+
     }
+
   };
 
   if (loading) {
+
     return (
-      <div className="container py-5 text-center">
-        <div
-          className="spinner-border text-success mb-3"
-          role="status"
-        ></div>
-        <h5>Loading Property...</h5>
+
+      <div className="container text-center mt-5">
+
+        <h3>Loading Property...</h3>
+
       </div>
+
     );
+
   }
 
-  if (error || !property) {
+  if (error) {
+
     return (
-      <div className="container py-5">
-        <div className="alert alert-danger text-center">
-          Property not found.
+
+      <div className="container mt-5">
+
+        <div className="alert alert-danger">
+
+          {error}
+
         </div>
+
       </div>
+
     );
+
   }
+
+  console.log(property);
+  console.log(property.images);
 
   return (
-    <div className="container py-4 py-md-5">
+
+    <div className="container py-5">
+
       <div className="row g-4">
 
         {/* Left Section */}
-        <div className="col-12 col-lg-8">
 
-          <div className="card border-0 shadow rounded-4 overflow-hidden">
+        <div className="col-lg-8">
+
+          <div className="card shadow border-0 rounded-4">
 
             <img
-              src={property.image}
-              alt={property.title}
-              className="img-fluid"
+              src={
+                property.images && property.images.length > 0
+                  ? property.images[0]
+                  : "https://via.placeholder.com/900x450?text=No+Image"
+              }
+              alt="Property"
               style={{
                 width: "100%",
-                height: "400px",
+                height: "420px",
                 objectFit: "cover",
+                borderTopLeftRadius: "16px",
+                borderTopRightRadius: "16px",
               }}
             />
 
             <div className="card-body p-4">
 
-              <h2 className="fw-bold text-success mb-3">
-                {property.title}
+              <h2 className="fw-bold text-success mb-4">
+
+                {property.propertyType}
+
               </h2>
 
-              <h3 className="fw-bold mb-3">
-                ₹ {property.price}
-                <small className="text-muted fs-6">
-                  {" "}
-                  / month
-                </small>
-              </h3>
+              <div className="row">
 
-              <p className="mb-2">
-                <strong>Location:</strong> {property.location}
-              </p>
+                <div className="col-md-6 mb-3">
 
-              <p className="mb-3">
-                <strong>Bedrooms:</strong> {property.bedrooms}
-              </p>
+                  <h6 className="text-muted">Ad Type</h6>
 
-              <p className="mb-3">
-                <strong>Bathrooms:</strong> {property.bathrooms}
+                  <h5>{property.adType}</h5>
+
+                </div>
+
+                <div className="col-md-6 mb-3">
+
+                  <h6 className="text-muted">Amount</h6>
+
+                  <h5>₹ {property.amount}</h5>
+
+                </div>
+
+                <div className="col-md-6 mb-3">
+
+                  <h6 className="text-muted">Owner Contact</h6>
+
+                  <h5>{property.contact}</h5>
+
+                </div>
+
+                <div className="col-md-6 mb-3">
+
+                  <h6 className="text-muted">Availability</h6>
+
+                  <h5>{property.status}</h5>
+
+                </div>
+
+              </div>
+
+              <hr />
+
+              <h5 className="fw-bold mb-3">
+
+                Property Address
+
+              </h5>
+
+              <p>
+
+                {property.address}
+
               </p>
 
               <hr />
 
-              <h5>Description</h5>
+              <h5 className="fw-bold mb-3">
 
-              <p className="text-muted">
+                Description
+
+              </h5>
+
+              <p>
+
                 {property.description}
+
               </p>
 
             </div>
@@ -138,10 +228,11 @@ const PropertyDetails = () => {
         </div>
 
         {/* Right Section */}
-        <div className="col-12 col-lg-4">
+
+        <div className="col-lg-4">
 
           <div
-            className="card border-0 shadow rounded-4"
+            className="card shadow border-0 rounded-4"
             style={{
               position: "sticky",
               top: "90px",
@@ -150,20 +241,65 @@ const PropertyDetails = () => {
 
             <div className="card-body p-4">
 
-              <h4 className="text-success mb-4">
-                Booking
-              </h4>
+              <h3 className="fw-bold text-success mb-4">
+                Property Summary
+              </h3>
+
+              <div className="mb-3">
+
+                <h6 className="text-muted">
+                  Property Type
+                </h6>
+
+                <h5>
+                  {property.propertyType}
+                </h5>
+
+              </div>
+
+              <div className="mb-3">
+
+                <h6 className="text-muted">
+                  Amount
+                </h6>
+
+                <h4 className="fw-bold">
+                  ₹ {property.amount}
+                </h4>
+
+              </div>
+
+              <div className="mb-4">
+
+                <h6 className="text-muted">
+                  Status
+                </h6>
+
+                <span
+                  className={
+                    property.status === "Available"
+                      ? "badge bg-success"
+                      : "badge bg-danger"
+                  }
+                >
+                  {property.status}
+                </span>
+
+              </div>
 
               <button
-                className="btn btn-success w-100 mb-3 py-2"
+                className="btn btn-success w-100 py-2 mb-3"
                 onClick={handleBooking}
+                disabled={property.status !== "Available"}
               >
-                Book Property
+                {property.status === "Available"
+                  ? "Book Property"
+                  : "Not Available"}
               </button>
 
               <Link
-                to="/"
-                className="btn btn-outline-secondary w-100 py-2"
+                to="/home"
+                className="btn btn-outline-secondary w-100"
               >
                 Back to Home
               </Link>
@@ -175,7 +311,9 @@ const PropertyDetails = () => {
         </div>
 
       </div>
+
     </div>
+
   );
 };
 

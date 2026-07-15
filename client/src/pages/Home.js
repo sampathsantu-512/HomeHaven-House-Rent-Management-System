@@ -8,7 +8,7 @@ const Home = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [priceFilter, setPriceFilter] = useState("");
-  const [bedroomFilter, setBedroomFilter] = useState("");
+  // const [bedroomFilter, setBedroomFilter] = useState("");
 
   useEffect(() => {
     const fetchProperties = async () => {
@@ -26,18 +26,21 @@ const Home = () => {
   }, []);
 
   const filteredProperties = properties.filter((property) => {
+
     const matchesSearch =
-      property.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      property.location?.toLowerCase().includes(searchTerm.toLowerCase());
+      property.propertyType
+        ?.toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      property.address
+        ?.toLowerCase()
+        .includes(searchTerm.toLowerCase());
 
     const matchesPrice =
-      priceFilter === "" || Number(property.price) <= Number(priceFilter);
+      priceFilter === "" ||
+      Number(property.amount) <= Number(priceFilter);
 
-    const matchesBedrooms =
-      bedroomFilter === "" ||
-      Number(property.bedrooms) === Number(bedroomFilter);
+    return matchesSearch && matchesPrice;
 
-    return matchesSearch && matchesPrice && matchesBedrooms;
   });
 
   return (
@@ -61,7 +64,7 @@ const Home = () => {
           <input
             type="text"
             className="form-control"
-            placeholder="Search by Title or Location"
+            placeholder="Search by Property Type or Address"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -77,7 +80,7 @@ const Home = () => {
           />
         </div>
 
-        <div className="col-12 col-md-4">
+        {/* <div className="col-12 col-md-4">
           <select
             className="form-select"
             value={bedroomFilter}
@@ -89,7 +92,7 @@ const Home = () => {
             <option value="3">3 BHK</option>
             <option value="4">4+ BHK</option>
           </select>
-        </div>
+        </div> */}
 
       </div>
 

@@ -1,31 +1,67 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+  const [roleOpen, setRoleOpen] = useState(false);
+  const [roleFocused, setRoleFocused] = useState(false);
+  const roleWrapperRef = useRef(null);
 
   const navigate = useNavigate();
+
+  const roleOptions = [
+    { label: "Renter", value: "rent" },
+    { label: "Owner", value: "owner" },
+  ];
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (roleWrapperRef.current && !roleWrapperRef.current.contains(event.target)) {
+        setRoleOpen(false);
+        setRoleFocused(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const roleSelectStyle = roleFocused
+    ? {
+        borderColor: "#198754",
+        boxShadow: "0 0 0 .2rem rgba(25, 135, 84, 0.25)",
+        outline: "none",
+      }
+    : {};
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
+      if (!role) {
+        alert("Please select a user type.");
+        return;
+      }
+
       const response = await axios.post(
         "https://homehaven-house-rent-management-system.onrender.com/api/auth/register",
         {
           name,
           email,
           password,
+          role,
         }
       );
 
       const token = response.data.token;
       localStorage.setItem("token", token);
 
-      alert("Registration Successful");
+      toast.success("Registration Successful");
       navigate("/login");
     } catch (error) {
       const message =
@@ -104,6 +140,70 @@ const Register = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                   />
+                </div>
+
+                <div className="mb-4">
+                  <label className="form-label fw-semibold">
+                    Select User Type
+                  </label>
+
+                  <div className="custom-select-dropdown" ref={roleWrapperRef}>
+                    <button
+                      type="button"
+                      className={`custom-select-toggle ${roleFocused ? "focused" : ""}`}
+                      onClick={() => {
+                        setRoleOpen(!roleOpen);
+                        setRoleFocused(true);
+                      }}
+                      style={{
+                        ...roleSelectStyle,
+                        height: "38px",
+                        padding: "0.375rem 0.75rem",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <span className={!role ? "custom-select-placeholder" : ""}>
+                        {role
+                          ? roleOptions.find((option) => option.value === role)?.label
+                          : "Select User Type"}
+                      </span>
+                      <span className="custom-select-arrow">▾</span>
+                    </button>
+
+                    {roleOpen && (
+                      <ul
+                        className="custom-select-list"
+                        style={{
+                          marginTop: "6px",
+                          borderRadius: "6px",
+                          overflow: "hidden",
+                          boxShadow: "0 .5rem 1rem rgba(0,0,0,0.08)",
+                        }}
+                      >
+                        {roleOptions.map((option) => (
+                          <li
+                            key={option.value}
+                            className={`custom-select-item ${role === option.value ? "active" : ""}`}
+                            onClick={() => {
+                              setRole(option.value);
+                              setRoleOpen(false);
+                              setRoleFocused(false);
+                            }}
+                            style={{
+                              padding: "0.375rem 0.75rem",
+                              height: "38px",
+                              display: "flex",
+                              alignItems: "center",
+                            }}
+                          >
+                            {option.label}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
                 </div>
 
                 <button

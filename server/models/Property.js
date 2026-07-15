@@ -2,8 +2,28 @@ const mongoose = require("mongoose");
 
 const propertySchema = new mongoose.Schema(
   {
-    title: {
+    propertyType: {
       type: String,
+      required: true,
+    },
+
+    adType: {
+      type: String,
+      required: true,
+    },
+
+    address: {
+      type: String,
+      required: true,
+    },
+
+    contact: {
+      type: String,
+      required: true,
+    },
+
+    amount: {
+      type: Number,
       required: true,
     },
 
@@ -12,46 +32,20 @@ const propertySchema = new mongoose.Schema(
       required: true,
     },
 
-    location: {
-      type: String,
-      required: true,
-    },
-
-    price: {
-      type: Number,
-      required: true,
-    },
-
-    bedrooms: {
-      type: Number,
-      required: true,
-    },
-
-    bathrooms: {
-      type: Number,
-      required: true,
-    },
-
-    image: {
-      type: String,
-      default: "",
-    },
-
-    // NEW
-    type: {
-      type: String,
-      default: "Apartment",
-    },
-
-    // NEW
-    status: {
-      type: String,
-      default: "Approved",
-    },
+    images: [
+      {
+        type: String,
+      },
+    ],
 
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+    },
+
+    status: {
+      type: String,
+      default: "Available",
     },
   },
   {

@@ -1,0 +1,438 @@
+/* =========================
+   OWNER DASHBOARD
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.owner-dashboard {
+    min-height: 100vh;
+    background: #1e1b2e;
+    color: white;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar {
+    height: 75px;
+    background: #2a2640;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.logo span {
+    color: #38d996;
+}
+
+.top-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.username {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.logout-btn {
+    background: #38d996;
+    color: #1e1b2e;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.logout-btn:hover {
+    background: #2dc484;
+}
+
+/* =========================
+   TABS
+========================= */
+
+.tabs {
+    display: flex;
+    gap: 15px;
+    padding: 25px 35px 0;
+}
+
+.tabs button {
+    border: none;
+    background: #312d4a;
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: .3s;
+}
+
+.tabs button:hover {
+    background: #38d996;
+    color: #1e1b2e;
+}
+
+.tabs button.active {
+    background: #38d996;
+    color: #1e1b2e;
+    font-weight: 600;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.content-card {
+    width: 95%;
+    margin: 25px auto;
+    background: #2a2640;
+    border-radius: 16px;
+    padding: 35px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, .35);
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-title {
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 34px;
+    font-weight: 700;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    background: #3a3554;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 13px 15px;
+    outline: none;
+    font-size: 15px;
+}
+
+.form-group textarea {
+    resize: none;
+}
+
+.full-width {
+    margin-top: 5px;
+}
+
+.submit-area {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 25px;
+}
+
+.submit-btn {
+    background: #38d996;
+    color: #1e1b2e;
+    border: none;
+    padding: 13px 35px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.submit-btn:hover {
+    background: #2fc888;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-container {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.property-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.property-table thead {
+    background: #38d996;
+}
+
+.property-table th,
+.property-table td {
+    padding: 18px 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+    vertical-align: middle;
+}
+
+/* Actions column */
+.property-table td:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.property-table th {
+    color: #1e1b2e;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.property-table td {
+    text-align: center;
+    /* color: #fff; */
+    font-size: 15px;
+}
+
+/* =========================
+   COLUMN WIDTHS
+========================= */
+
+/* Property ID */
+.property-table th:nth-child(1),
+.property-table td:nth-child(1) {
+    width: 180px;
+}
+
+/* Property Type */
+.property-table th:nth-child(2),
+.property-table td:nth-child(2) {
+    width: 110px;
+}
+
+/* Ad Type */
+.property-table th:nth-child(3),
+.property-table td:nth-child(3) {
+    width: 80px;
+}
+
+/* Address */
+.property-table th:nth-child(4),
+.property-table td:nth-child(4) {
+    width: 270px;
+    text-align: center;
+}
+
+/* Owner Contact */
+.property-table th:nth-child(5),
+.property-table td:nth-child(5) {
+    width: 120px;
+}
+
+/* Amount */
+.property-table th:nth-child(6),
+.property-table td:nth-child(6) {
+    width: 110px;
+}
+
+/* Availability */
+.property-table th:nth-child(7),
+.property-table td:nth-child(7) {
+    width: 120px;
+}
+
+/* Actions */
+.property-table th:nth-child(8),
+.property-table td:nth-child(8) {
+    width: 140px;
+}
+
+/* =========================
+   ADDRESS
+========================= */
+
+.address-cell {
+    max-width: 260px;
+    margin: auto;
+    text-align: center;
+    line-height: 1.6;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* =========================
+   ROW EFFECT
+========================= */
+
+.property-table tbody tr {
+    transition: .25s;
+}
+
+.property-table tbody tr:hover {
+    background: #332f4f;
+}
+
+/* =========================
+   NO DATA
+========================= */
+
+.no-data {
+    text-align: center;
+    padding: 40px;
+}
+
+/* =========================
+   PROPERTY STATUS
+========================= */
+
+.available {
+    color: #28a745;   /* Green */
+    font-weight: 700;
+}
+
+.pending {
+    color: #f0ad00;   /* Orange */
+    font-weight: 700;
+}
+
+.unavailable {
+    color: #ff4d4f;   /* Red */
+    font-weight: 700;
+}
+
+
+/* =========================
+   ACTION BUTTONS
+========================= */
+
+.edit-btn,
+.delete-btn {
+    padding: 8px 18px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    background: transparent;
+    transition: 0.3s;
+    margin: 0 px;
+}
+
+/* Edit */
+
+.edit-btn {
+    color: #5843df;
+    border: 2px solid #5843df;
+}
+
+.edit-btn:hover {
+    background: #5843df;
+    color: #fff;
+}
+
+/* Delete */
+
+.delete-btn {
+    color: #ff4d5d;
+    border: 2px solid #ff4d5d;
+}
+
+.delete-btn:hover {
+    background: #ff4d5d;
+    color: #fff;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:992px) {
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .tabs {
+        flex-direction: column;
+    }
+
+}
+
+/* =========================
+   BOOKING BUTTONS
+========================= */
+
+.book-btn {
+    background-color: #16a34a;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    min-width: 140px;
+    transition: 0.3s;
+}
+
+.book-btn:hover {
+    background-color: #15803d;
+}
+
+.pending-btn {
+    background-color: #d4a017;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    min-width: 140px;
+    transition: 0.3s;
+}
+
+.pending-btn:hover {
+    background-color: #b8860b;
+}

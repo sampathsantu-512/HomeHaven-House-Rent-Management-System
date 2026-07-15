@@ -1,77 +1,171 @@
 const Property = require("../models/Property");
 
+// ===============================
 // Create Property
+// ===============================
 const createProperty = async (req, res) => {
   try {
-    const property = await Property.create(req.body);
+    console.log("========== CREATE PROPERTY ==========");
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
+    console.log("USER:", req.user);
+
+    const imagePath = req.file
+      ? `https://homehaven-house-rent-management-system.onrender.com/uploads/${req.file.filename}`
+      : "";
+
+    const property = await Property.create({
+      propertyType: req.body.propertyType,
+      adType: req.body.adType,
+      address: req.body.address,
+      contact: req.body.contact,
+      amount: req.body.amount,
+      description: req.body.description,
+      images: imagePath ? [imagePath] : [],
+      owner: req.user._id,
+      status: req.body.status || "Available",
+    });
+
     res.status(201).json(property);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("CREATE PROPERTY ERROR:");
+    console.error(error);
+
+    res.status(500).json({
+      message: error.message,
+    });
   }
 };
 
+// ===============================
 // Get All Properties
+// ===============================
 const getProperties = async (req, res) => {
   try {
-    const properties = await Property.find().populate("owner", "name email");
+    const properties = await Property.find().populate(
+      "owner",
+      "name email"
+    );
+
     res.json(properties);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message,
+    });
   }
 };
 
+// ===============================
+// Get Logged In Owner Properties
+// ===============================
+const getMyProperties = async (req, res) => {
+  try {
+    const properties = await Property.find({
+      owner: req.user._id,
+    }).populate("owner", "name email");
+
+    res.json(properties);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+// ===============================
 // Get Single Property
+// ===============================
 const getProperty = async (req, res) => {
   try {
-    const property = await Property.findById(req.params.id);
-
-    if (!property) {
-      return res.status(404).json({ message: "Property not found" });
-    }
-
-    res.json(property);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// Update Property
-const updateProperty = async (req, res) => {
-  try {
-    const property = await Property.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true }
+    const property = await Property.findById(req.params.id).populate(
+      "owner",
+      "name email"
     );
 
     if (!property) {
-      return res.status(404).json({ message: "Property not found" });
+      return res.status(404).json({
+        message: "Property not found",
+      });
     }
 
     res.json(property);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message,
+    });
   }
 };
 
-// Delete Property
-const deleteProperty = async (req, res) => {
+// ===============================
+// Update Property
+// ===============================
+const updateProperty = async (req, res) => {
   try {
-    const property = await Property.findByIdAndDelete(req.params.id);
+    const updateData = {
+      ...req.body,
+    };
 
-    if (!property) {
-      return res.status(404).json({ message: "Property not found" });
+    if (req.file) {
+      updateData.images = [
+        `https://homehaven-house-rent-management-system.onrender.com/uploads/${req.file.filename}`,
+      ];
     }
 
-    res.json({ message: "Property deleted successfully" });
+    const property = await Property.findOneAndUpdate(
+      {
+        _id: req.params.id,
+        owner: req.user.id,
+      },
+      updateData,
+      {
+        new: true,
+      }
+    );
+
+    if (!property) {
+      return res.status(404).json({
+        message: "Property not found",
+      });
+    }
+
+    res.json(property);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+// ===============================
+// Delete Property
+// ===============================
+const deleteProperty = async (req, res) => {
+  try {
+    const property = await Property.findOneAndDelete({
+      _id: req.params.id,
+      owner: req.user.id,
+    });
+
+    if (!property) {
+      return res.status(404).json({
+        message: "Property not found",
+      });
+    }
+
+    res.json({
+      message: "Property deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
   }
 };
 
 module.exports = {
   createProperty,
   getProperties,
+  getMyProperties,
   getProperty,
   updateProperty,
   deleteProperty,
