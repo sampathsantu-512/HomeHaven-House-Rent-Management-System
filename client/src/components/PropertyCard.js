@@ -22,7 +22,7 @@ const PropertyCard = ({ property }) => {
         overflow: "hidden",
         color: "white",
         boxShadow: "0 4px 15px rgba(0,0,0,0.35)",
-        height: "450px",
+        // height: "700px",
         maxWidth: "300px",
         // width:"100%",
         margin: "0 auto",// increase this
@@ -37,7 +37,7 @@ const PropertyCard = ({ property }) => {
         alt="Property"
         style={{
           width: "100%",
-          height: "420px",
+          height: "220px",
           objectFit: "cover",
           borderTopLeftRadius: "16px",
           borderTopRightRadius: "16px",
