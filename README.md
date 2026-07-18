@@ -7,10 +7,10 @@ HomeHaven is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) web appl
 ## 🚀 Live Demo
 
 ### 🌐 Frontend (Vercel)
-https://your-vercel-url.vercel.app
+https://home-haven-house-rent-management-sy.vercel.app/
 
 ### ⚙️ Backend (Render)
-https://homehaven-house-rent-management-system.onrender.com
+https://homehaven-house-rent-management-system.onrender.com/
 
 ---
 
@@ -115,7 +115,7 @@ HomeHaven/
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/HomeHaven.git
+git clone https://github.com/sampathsantu-512/HomeHaven-House-Rent-Management-System
 ```
 
 ### Install Frontend Dependencies
@@ -174,39 +174,35 @@ npm start
 
 ### 🏠 Home Page
 
-![Home Page](screenshots/home.png)
-
+![Home Page](screenshots/01-home.png)
 ---
 
 ### 🔐 Login Page
 
-![Login Page](screenshots/login.png)
-
+![Login Page](screenshots/02-login.png)
 ---
 
 ### 📝 Register Page
 
-![Register Page](screenshots/register.png)
+![Register Page](screenshots/03-register.png)
 
 ---
 
 ### 👨‍💼 Owner Dashboard
 
-![Owner Dashboard](screenshots/owner-dashboard.png)
+![Owner Dashboard](screenshots/04-owner-dashboard.png)
 
 ---
 
 ### 🏡 Property Details
 
-![Property Details](screenshots/property-details.png)
+![Property Details](screenshots/05-property-details.png)
 
 ---
 
 ### 📅 Booking Page
 
-![Booking Page](screenshots/booking-page.png)
-
----
+![Booking Page](screenshots/06-booking-page.png)---
 
 ## 🌟 Future Enhancements
 
@@ -225,8 +221,18 @@ npm start
 
 This project was collaboratively developed by the following team members.
 
-| Name | Role | GitHub | LinkedIn |
-|------|------|--------|----------|
+| Name |GitHub | LinkedIn |
+|------|-------|----------|
+| Pechetti Sravya | https://github.com/Sravya239 | https://www.linkedin.com/in/sravya-pechetti-231650323/ |
+
+| Chennu Gowri Lasya Priya | https://github.com/chennulasyapriya-del | https://www.linkedin.com/in/chennu-gowri-lasya-priya-00437b315/ |
+
+| Tumpati Jaswitha| https://github.com/kondalajaswi-sudo | https://www.linkedin.com/in/jaswitha-thumpati-23094a366/ |
+
+| Botcha Karishma | https://github.com/karishma903 | https://www.linkedin.com/in/botcha-karishma-360531348/ |
+
+| Sampad Kumar Nayak | https://github.com/sampathsantu-512 | https://www.linkedin.com/in/sampad-kumar-nayak-01a743320/ |
+
 
 
 ---
