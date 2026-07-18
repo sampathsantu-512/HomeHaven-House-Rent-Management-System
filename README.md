@@ -1,57 +1,55 @@
-# 🏠 Home Haven – House Rent Management System
+# 🏠 HomeHaven – House Rent Management System
 
-A full-stack MERN web application that allows property owners to list rental properties and tenants to search, book, and manage rental properties online. The system provides secure authentication, property management, booking management, and role-based access for Owners and Renters.
+HomeHaven is a full-stack MERN (MongoDB, Express.js, React.js, Node.js) web application that allows property owners to list rental properties and renters to browse, book, and manage rental homes. The application features secure authentication, cloud-based image storage using Cloudinary, responsive design, and an intuitive user experience.
 
 ---
 
-## 🚀 Features
+## 🚀 Live Demo
 
-### 👤 Authentication
+### 🌐 Frontend (Vercel)
+https://your-vercel-url.vercel.app
+
+### ⚙️ Backend (Render)
+https://homehaven-house-rent-management-system.onrender.com
+
+---
+
+## ✨ Features
+
+### 👤 User Authentication
 - User Registration
 - User Login
 - JWT Authentication
-- Role-Based Access (Owner & Renter)
+- Protected Routes
 
-### 🏡 Owner Dashboard
-- Add New Property
-- Edit Property Details
+### 🏡 Property Management
+- Add Property
+- Edit Property
 - Delete Property
 - View All Properties
-- View Booking Requests
-- Approve Bookings
-- Mark Booking as Pending
-- Automatic Property Status Updates
-- Toast Notifications
+- View Owner Properties
+- Property Details Page
 
-### 🏠 Renter Dashboard
-- Browse Available Properties
-- Search Properties
-- View Property Details
-- Book Property
-- View My Bookings
+### 📅 Booking System
+- Book a Property
 - Cancel Booking
-- Automatic Property Availability Updates
-- Responsive Property Cards
+- Booking Management
+- Property Availability Status
 
-### 📊 Property Management
-- Property Images
-- Property Type
-- Ad Type (Rent/Sale)
-- Address
-- Contact Information
-- Price
-- Description
-- Property Availability
+### 🖼 Cloud Image Upload
+- Upload Images using Cloudinary
+- Permanent Cloud Storage
+- Property Image Preview
 
-### 🔒 Security
-- JWT Authentication
-- Protected Routes
-- Password Encryption using bcrypt
-- Role-Based Authorization
+### 🎨 User Interface
+- Responsive Design
+- Bootstrap 5
+- Glassmorphism Cards
+- Toast Notifications
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠 Tech Stack
 
 ### Frontend
 - React.js
@@ -59,32 +57,34 @@ A full-stack MERN web application that allows property owners to list rental pro
 - Axios
 - Bootstrap 5
 - React Toastify
-- CSS3
 
 ### Backend
 - Node.js
 - Express.js
 - MongoDB Atlas
 - Mongoose
-- JWT
-- bcryptjs
-- dotenv
+- JWT Authentication
+- Multer
+- Cloudinary
+- Multer Storage Cloudinary
+
+### Deployment
+- Frontend – Vercel
+- Backend – Render
+- Database – MongoDB Atlas
+- Image Storage – Cloudinary
 
 ---
 
 ## 📁 Project Structure
 
-```
-Home-Haven/
+```text
+HomeHaven/
 │
 ├── client/
 │   ├── public/
 │   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── styles/
-│   │   ├── App.js
-│   │   └── index.js
+│   └── package.json
 │
 ├── server/
 │   ├── config/
@@ -92,8 +92,18 @@ Home-Haven/
 │   ├── middleware/
 │   ├── models/
 │   ├── routes/
+│   ├── uploads/
 │   ├── server.js
-│   └── .env
+│   ├── package.json
+│   └── .env.example
+│
+├── screenshots/
+│   ├── home.png
+│   ├── login.png
+│   ├── register.png
+│   ├── owner-dashboard.png
+│   ├── property-details.png
+│   └── booking-page.png
 │
 └── README.md
 ```
@@ -102,31 +112,29 @@ Home-Haven/
 
 ## ⚙️ Installation
 
-### Clone Repository
+### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/Home-Haven.git
+git clone https://github.com/your-username/HomeHaven.git
 ```
 
-### Backend
-
-```bash
-cd server
-npm install
-npm run dev
-```
-
-### Frontend
+### Install Frontend Dependencies
 
 ```bash
 cd client
 npm install
-npm start
+```
+
+### Install Backend Dependencies
+
+```bash
+cd ../server
+npm install
 ```
 
 ---
 
-## 🌐 Environment Variables
+## 🔑 Environment Variables
 
 Create a `.env` file inside the **server** folder.
 
@@ -135,61 +143,100 @@ PORT=5000
 
 MONGO_URI=your_mongodb_connection_string
 
-JWT_SECRET=your_secret_key
+JWT_SECRET=your_jwt_secret
+
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+---
+
+## ▶️ Running the Project
+
+### Start Backend
+
+```bash
+cd server
+npm run dev
+```
+
+### Start Frontend
+
+```bash
+cd client
+npm start
 ```
 
 ---
 
 ## 📷 Screenshots
 
-Add screenshots of:
+### 🏠 Home Page
 
-- Home Page
-- Login
-- Register
-- Owner Dashboard
-- Property Listing
-- Booking Page
-- My Bookings
+![Home Page](screenshots/home.png)
 
 ---
 
-## 🌍 Deployment
+### 🔐 Login Page
 
-### Frontend
-- Vercel
-
-### Backend
-- Render
-
-### Database
-- MongoDB Atlas
+![Login Page](screenshots/login.png)
 
 ---
 
-## 📌 Future Improvements
+### 📝 Register Page
 
-- Payment Gateway Integration
+![Register Page](screenshots/register.png)
+
+---
+
+### 👨‍💼 Owner Dashboard
+
+![Owner Dashboard](screenshots/owner-dashboard.png)
+
+---
+
+### 🏡 Property Details
+
+![Property Details](screenshots/property-details.png)
+
+---
+
+### 📅 Booking Page
+
+![Booking Page](screenshots/booking-page.png)
+
+---
+
+## 🌟 Future Enhancements
+
+- Advanced Property Search & Filters
 - Wishlist / Favorites
+- Google Maps Integration
+- Online Payment Gateway
 - Email Notifications
+- User Profile Management
 - Property Reviews & Ratings
-- Advanced Search Filters
-- Admin Dashboard
-- Chat Between Owner & Renter
+- Admin Analytics Dashboard
 
 ---
 
-## 👨‍💻 Author
+## 👥 Project Team
 
-**Sidhanth Kumar Nayak**
+This project was collaboratively developed by the following team members.
 
-GitHub:
-https://github.com/sampathsantu-512
+| Name | Role | GitHub | LinkedIn |
+|------|------|--------|----------|
 
-LinkedIn:
-https://www.linkedin.com/in/sampad-kumar-nayak-01a743320/
+
+---
+
+## 🤝 Contributing
+
+Contributions, suggestions, and improvements are welcome. Feel free to fork this repository and submit a pull request.
+
 ---
 
 ## 📄 License
 
-This project is developed for educational and internship purposes.
+This project was developed for educational and learning purposes.

@@ -1,0 +1,8 @@
+# Environment files
+.env
+
+# Node modules
+node_modules/
+
+# Uploads folder (optional now that you're using Cloudinary)
+uploads/

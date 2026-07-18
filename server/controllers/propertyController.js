@@ -4,15 +4,14 @@ const Property = require("../models/Property");
 // Create Property
 // ===============================
 const createProperty = async (req, res) => {
+  // console.log("CREATE PROPERTY API HIT");
   try {
     console.log("========== CREATE PROPERTY ==========");
-    console.log("BODY:", req.body);
-    console.log("FILE:", req.file);
-    console.log("USER:", req.user);
+    // console.log("BODY:", req.body);
+    // console.log("FILE:", req.file);
+    // console.log("USER:", req.user);
 
-    const imagePath = req.file
-      ? `https://homehaven-house-rent-management-system.onrender.com/uploads/${req.file.filename}`
-      : "";
+    const imagePath = req.file ? req.file.path : "";
 
     const property = await Property.create({
       propertyType: req.body.propertyType,
@@ -106,9 +105,7 @@ const updateProperty = async (req, res) => {
     };
 
     if (req.file) {
-      updateData.images = [
-        `https://homehaven-house-rent-management-system.onrender.com/uploads/${req.file.filename}`,
-      ];
+      updateData.images = [req.file.path];
     }
 
     const property = await Property.findOneAndUpdate(

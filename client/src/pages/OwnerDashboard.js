@@ -595,7 +595,7 @@ const OwnerDashboard = () => {
 
                   <th>Booking ID</th>
 
-                  <th>Property ID</th>
+                  <th>Property Type</th>
 
                   <th>Tenant Name</th>
 
