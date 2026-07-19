@@ -7,13 +7,13 @@ const storage = new CloudinaryStorage({
   params: {
     folder: "homehaven",
     allowed_formats: [
-  "jpg",
-  "jpeg",
-  "png",
-  "webp",
-  "heic",
-  "gif"
-],
+      "jpg",
+      "jpeg",
+      "png",
+      "webp",
+      "heic",
+      "gif"
+    ],
   },
 });
 
